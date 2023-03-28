@@ -5,12 +5,19 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-i = {}
+Word.delete_all
+puts "wiping database"
 Eiwa.parse_file("app/JMdict_e.xml", type: :jmdict_e) do |entry|
-  i = entry
-  Word.japanese entry.text
-  Word.english = entry.meanings.first.definitions.first.text
-  Word.reading = entry.readings.first.text
+  word = Word.new
+  puts "generating word"
+  word.japanese = entry.text
+  puts word.japanese
+  word.english = entry.meanings.first.definitions.first.text
+  puts word.english
+  word.reading = entry.readings.first.text
+  puts word.reading
+  word.save
+  puts "word saved!"
 end
 # # gives us the meaning hash
 # entry.meanings.first
