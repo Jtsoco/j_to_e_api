@@ -8,14 +8,17 @@
 i = {}
 Eiwa.parse_file("app/JMdict_e.xml", type: :jmdict_e) do |entry|
   i = entry
+  Word.japanese entry.text
+  Word.english = entry.meanings.first.definitions.first.text
+  Word.reading = entry.readings.first.text
 end
 # gives us the meaning hash
 entry.meanings.first
 # gives array of all definitions
 entry.meanings.first.definitions
-# gives first of the definitions, might not always be array
+# gives first of the definitions, there can be more than one, and it gives an instance
 entry.meanings.first.definitions.first
-# gives english characters
+# gives english characters, .text also works
 entry.meanings.first.definitions.first.characters
 # gives language (english only in this dicitonary?
 entry.meanings.first.definitions.first.language
