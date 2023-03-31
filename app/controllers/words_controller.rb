@@ -1,4 +1,7 @@
 class WordsController < ApplicationController
+  # this is my attempt to add authentification for the index of words
+  # TODO decide whether to have bearer token in authorization header or query parameter
+
   def index
     @words = []
     if params[:q].present?
