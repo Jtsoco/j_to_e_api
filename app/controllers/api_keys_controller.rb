@@ -19,6 +19,7 @@ class ApiKeysController < ApplicationController
 
         render json: api_key, status: :created and return
       end
+      # TODO fix security issues
     end
     render status: :unauthorized
   end
