@@ -3,6 +3,7 @@ class WordsController < ApplicationController
   # TODO decide whether to have bearer token in authorization header or query parameter
 
   def index
+    authenticate(params[:bearer])
     @words = []
     if params[:q].present?
     params[:q].split.each do |word|
@@ -19,4 +20,12 @@ class WordsController < ApplicationController
     # TODO change words later
     render json: {status: 'SUCCESS', message: 'Loaded words', data: @words}, status: :ok
   end
+
+  private
+
+  def authenticate(token)
+    error!('401 Unauthorized', 401) unless ApiKey.where(token: token).present?
+  end
 end
+
+# website/words?q=.....&bearer=....""
